@@ -57,8 +57,9 @@ export function Dashboard(){
     const collectionFilttered = collection
     .filter(transaction => transaction.type === type)
 
-    if(collectionFilttered.length === 0)
-      return "0"
+    if(collectionFilttered.length === 0){
+      return 
+    }
 
     const lastTransaction = new Date(
     Math.max.apply(Math, collectionFilttered
@@ -112,8 +113,8 @@ export function Dashboard(){
     const lastTransactionEntries = getLastTransactionDate(transactions, 'positive');
     const lastTransactionExpensives = getLastTransactionDate(transactions, 'negative');
     const totalInterval = lastTransactionExpensives
-    ? 'Não há transações'
-    : `01 a ${lastTransactionExpensives}`;
+    ? `01 a ${lastTransactionExpensives}`
+    : 'Não há transações';
 
     
     const total = entriesTotal - expensiveTotal;
@@ -125,8 +126,8 @@ export function Dashboard(){
           currency: 'BRL'
         }),
         lastTransaction: lastTransactionEntries 
-        ? 'Não há transações'
-        : `Última entrada dia ${lastTransactionEntries}`,
+        ? `Última entrada dia ${lastTransactionEntries}`
+        : 'Não há transações',
       },
       expensives: {
         amount: expensiveTotal.toLocaleString('pt-BR', {
@@ -134,8 +135,8 @@ export function Dashboard(){
           currency: 'BRL'
         }),
         lastTransaction: lastTransactionExpensives
-        ? 'Não há transações'
-        : `Última entrada dia ${lastTransactionExpensives}`,
+        ? `Última entrada dia ${lastTransactionExpensives}`
+        : 'Não há transações',
       },
       total: {
         amount: total.toLocaleString('pt-BR', {
@@ -147,6 +148,10 @@ export function Dashboard(){
     });
     
     setIsLoading(false);
+  }
+
+  async function handleSignOut(){
+    signOut();
   }
 
   useEffect(() => {
@@ -182,7 +187,7 @@ export function Dashboard(){
                 </User>
               </UserInfo>
 
-              <LogoutButton onPress={signOut}>
+              <LogoutButton onPress={handleSignOut}>
                 <Icon name="power"/>
               </LogoutButton>
             </UserWrapper>
